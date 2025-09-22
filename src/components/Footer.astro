@@ -1,0 +1,19 @@
+---
+import Social from "./Social.astro";
+const platform = "github";
+const username = "mpxw";
+---
+
+<style>
+  footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>
+
+<footer>
+  <Social platform="twitter" username="zhangsan" />
+  <Social platform="github" username="zhangsan" />
+  <Social platform="youtube" username="zhangsan" />
+</footer>
