@@ -1,6 +1,1 @@
-import { _ as __vite_glob_0_3 } from '../../chunks/post-4_DbUNFghH.mjs';
-export { renderers } from '../../renderers.mjs';
-
-const page = () => __vite_glob_0_3;
-
-export { page };
+// Contents removed by Astro as it's used for prerendering only
