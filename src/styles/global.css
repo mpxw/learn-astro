@@ -1,6 +1,11 @@
+/* 定义变量 */
+:root {
+  --shiki-light-bg: #f6f8fa
+}
+
 /* 定义全局样式 */
 html {
-  background-color: #f1f5f9;
+  /* background-color: #f1f5f9; */
   font-family: sans-serif;
 }
 
@@ -8,7 +13,7 @@ body {
   margin: 0 auto;
   width: 100%;
   /* max-width: 80ch; */
-  padding: 1rem;
+  /* padding: 1rem; */
   line-height: 1.5;
 }
 
@@ -79,5 +84,18 @@ h1 {
 
   .hamburger {
     display: none;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+
+  .astro-code,
+  .astro-code span {
+    /* color: var(--shiki-dark) !important; */
+    background-color: var(--shiki-light-bg) !important;
+    /* 可选，如果你还需要字体样式 */
+    /* font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important; */
   }
 }

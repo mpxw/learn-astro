@@ -1,6 +1,7 @@
 ---
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import "../styles/github-markdown.css";
 import "../styles/global.css";
 const { pageTitle } = Astro.props;
 ---
@@ -14,10 +15,12 @@ const { pageTitle } = Astro.props;
     <title>{pageTitle}</title>
   </head>
   <body>
-    <Header />
-    <h1>{pageTitle}</h1>
-    <slot />
-    <Footer />
+    <article class="markdown-body">
+      <Header />
+      <h1>{pageTitle}</h1>
+      <slot />
+      <!-- <Footer /> -->
+    </article>
     <script>
       import "../scripts/menu";
     </script>
