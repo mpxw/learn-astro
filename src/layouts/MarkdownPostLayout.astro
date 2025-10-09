@@ -9,7 +9,17 @@ const { frontmatter } = Astro.props;
 
   <p>作者：{frontmatter.author}</p>
 
-  <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
+  {
+    frontmatter.image.url ? (
+      <img
+        src={frontmatter.image.url}
+        width="300"
+        alt={frontmatter.image.alt}
+      />
+    ) : (
+      <div />
+    )
+  }
 
   <div class="tags">
     {
