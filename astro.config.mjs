@@ -8,10 +8,11 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-    site: "http://localhost:4321",
+    site: "https://mpxw.github.io",
+    base: "/learn-astro",
     output: 'static',
     adapter: deno(),
-
+    trailingSlash: "never",
     markdown: {
         shikiConfig: {
             theme: 'github-light',

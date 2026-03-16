@@ -1,24 +1,47 @@
-name: Deploy
-on: [push]
+name: Deploy to GitHub Pages
+
+on:
+  # 每次推送到 `main` 分支时触发这个“工作流程”
+  # 如果你使用了别的分支名，请按需将 `main` 替换成你的分支名
+  push:
+    branches: [ master ]
+  # 允许你在 GitHub 上的 Actions 标签中手动触发此“工作流程”
+  workflow_dispatch:
+
+# 允许 job 克隆 repo 并创建一个 page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  deploy:
-    name: Deploy
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # 用于 Deno Deploy 身份认证
-      contents: read # 用于克隆仓库
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-      # 没有使用 npm？将 `npm ci` 更改为 `yarn install` 或 `pnpm i`
-      - name: Install dependencies
-        run: npm ci
-      # 没有使用 npm？将 `npm run build` 更改为 `yarn build` 或 `pnpm run build`
-      - name: Build Astro
-        run: npm run build
-      - name: Upload to Deno Deploy
-        uses: denoland/deployctl@v1
+      - name: Checkout your repository using git
+        uses: actions/checkout@v5
+      - name: Install, build, and upload your site
+        uses: withastro/action@v5
         with:
-          project: blog-mk # TODO：替换为 Deno Deploy 项目名称
-          entrypoint: jsr:@std/http/file-server
-          root: dist
+          # path: . # 存储库中 Astro 项目的根位置。（可选）
+          node-version: 22.17.0 # 用于构建站点的特定 Node.js 版本，默认为 20。（可选）
+          # package-manager: pnpm@latest # 应使用哪个 Node.js 包管理器来安装依赖项和构建站点。会根据存储库中的 lockfile 自动检测。（可选）
+          # build-cmd: pnpm run build # 用于构建你的网站的命令。默认运行软件包的构建脚本或任务。（可选）
+      - run: npm i
+      - run: npm run build
+        # env:
+          # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # 对变量值使用单引号。（可选）
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist/client
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
