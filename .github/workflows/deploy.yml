@@ -33,7 +33,7 @@ jobs:
           # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # 对变量值使用单引号。（可选）
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: ./dist/client
+          path: ./dist
 
   deploy:
     needs: build
